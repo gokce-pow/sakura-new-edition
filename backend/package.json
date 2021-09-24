@@ -1,0 +1,67 @@
+{
+  "name": "sakura-new-edition",
+  "version": "0.0.1",
+  "description": "First version of Sakura project",
+  "scripts": {
+    "test": "jest --testEnvironment=node --verbose --forceExit --watchAll --maxWorkers=1",
+    "test-coverage": " jest --collect-coverage --testEnvironment=node --forceExit --maxWorkers=1",
+    "lint": "lint-staged",
+    "prepare": "husky install",
+    "start": "node ./bin/www"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  },
+  "lint-staged": {
+    "./**/*.js": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gokce-pow/sakura-new-edition.git"
+  },
+  "keywords": [
+    "software",
+    "engineering",
+    "node.js",
+    "backend"
+  ],
+  "author": "Gokce Dalkiran <gokcedalkiran10@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gokce-pow/sakura-new-edition/issues"
+  },
+  "homepage": "https://github.com/gokce-pow/sakura-new-edition#readme",
+  "devDependencies": {
+    "connect-livereload": "^0.6.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.4.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.21.5",
+    "eslint-plugin-react-hooks": "^4",
+    "husky": "^7.0.2",
+    "jest": "^27.2.1",
+    "lint-staged": "^11.1.2",
+    "livereload": "^0.9.3",
+    "prettier": "^2.3.2",
+    "supertest": "^6.1.6"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^10.0.0",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "mongoose": "^6.0.5",
+    "morgan": "~1.9.1",
+    "pug": "2.0.0-beta11"
+  }
+}
