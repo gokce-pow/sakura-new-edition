@@ -2,12 +2,12 @@
   .home
     img(alt="Vue logo" src="../assets/logo.png")
     HelloWorld(msg="Welcome to Your Vue.js App")
-    div(v-for="customer in customers") {{ customer.name }}
+    div(v-for="customer in customers") {{ customer.name }} has created a new request!
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import HelloWorld from '@/components/hello-world.vue'
 import axios from 'axios'
 
 export default {
