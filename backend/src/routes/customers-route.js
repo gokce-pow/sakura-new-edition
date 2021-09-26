@@ -10,7 +10,7 @@ const users = [
 ]
 
 /* GET users listing. */
-router.get('/', (req, res) => {
+router.get('/api/', (req, res) => {
   const result = users
   if (req.query.name) {
     res.send(users.find(user => user.name == req.query.name))
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
   res.send(result)
 })
 
-router.get('/initialize', async (req, res) => {
+router.get('/api/initialize', async (req, res) => {
   console.log('Inside initialize')
   const gokce = await Customer.create({
     name: 'gokce',
@@ -38,7 +38,7 @@ router.get('/initialize', async (req, res) => {
   res.sendStatus(200)
 })
 
-router.get('/:customerId', async (req, res) => {
+router.get('/api/:customerId', async (req, res) => {
   try {
     const customer = await Customer.findById(req.params.customerId)
     console.log('Customer: ', customer)
@@ -49,14 +49,14 @@ router.get('/:customerId', async (req, res) => {
   }
 })
 
-router.post('/signup', async (req, res) => {
+router.post('/api/signup', async (req, res) => {
   console.log('Inside Signup')
   const newCustomer = await Customer.create(req.body)
 
   res.send(newCustomer)
 })
 
-router.post('/login', async (req, res) => {
+router.post('/api/login', async (req, res) => {
   const login = await Customer.findOne({ email: req.body.email })
   if (login.password === req.body.password) res.send(`Welcome ${login.name}`)
   console.log('It worked')
