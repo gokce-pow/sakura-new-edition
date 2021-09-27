@@ -23,6 +23,8 @@ services:
       # - MONGODB_PASSWORD
       # - MONGODB_DATABASE
       - MONGODB_CONNECTION_STRING=mongodb://mongo/sakura-new-edition
+      - HOST=0.0.0.0
+      - CHOKIDAR_USEPOLLING=true
     # 'mongo' in the url and the below service name 'mongo' should be the same
     labels:
       - "traefik.enable=true"
