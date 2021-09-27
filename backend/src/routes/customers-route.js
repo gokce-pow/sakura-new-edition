@@ -7,7 +7,12 @@ const Customer = require('../models/customer')
 const users = [
   { name: 'gokce', age: 18 },
   { name: 'emre', age: 19 },
+  { name: 'winnie', age: 8 }
 ]
+const requests = [
+  { jobType: 'painting', details: 'I want my living room to be painted' },
+]
+
 
 /* GET users listing. */
 router.get('/', (req, res) => {
@@ -32,9 +37,16 @@ router.get('/initialize', async (req, res) => {
     address: 'Berlin',
     password: '23456789',
   })
+  const winnie = await Customer.create({
+    name: 'winnie',
+    email: 'winnie@gmail.com',
+    address: 'Berlin',
+    password: '34567890',
+  })
 
   console.log(gokce)
   console.log(emre)
+  console.log(winnie)
   res.sendStatus(200)
 })
 
