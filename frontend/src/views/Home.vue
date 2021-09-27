@@ -1,23 +1,16 @@
-<template lang="pug">
-  .home
-    img(alt="Vue logo" src="../assets/logo.png")
-    HelloWorld(msg="Welcome to Your Vue.js App")
-    div(v-for="customer in customers") {{ customer.name }} has created a new request!
-</template>
-
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/hello-world.vue'
 import axios from 'axios'
+import UserCard from '@/components/user-card.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
+    UserCard,
   },
   data() {
     return {
       customers: [],
+      time: new Date(),
     }
   },
   async created() {
@@ -27,3 +20,10 @@ export default {
   },
 }
 </script>
+
+<template lang="pug">
+  .home
+    h1 Sakura
+    p The time is {{ time }}
+    user-card(v-for="customer in customers" :customer="customer" :key="customer.name")
+</template>
