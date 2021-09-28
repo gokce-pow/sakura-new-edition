@@ -1,11 +1,11 @@
 <script>
 import axios from 'axios'
-import UserCard from '@/components/user-card.vue'
+import CustomerCard from '@/components/customer-card.vue'
 
 export default {
-  name: 'Home',
+  name: 'CustomerList',
   components: {
-    UserCard,
+    CustomerCard,
   },
   data() {
     return {
@@ -24,6 +24,8 @@ export default {
 <template lang="pug">
   .home
     h1 Sakura
-    p The time is {{ time }}
-    user-card(v-for="customer in customers" :customer="customer" :key="customer.name")
+    p The time is {{ time }} 
+    h2 Customers
+    div(v-for="customer in customers")
+      router-link(:to="`/customers/${customer._id}`") {{ customer.name }}
 </template>
