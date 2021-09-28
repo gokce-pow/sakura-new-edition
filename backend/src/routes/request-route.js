@@ -2,7 +2,7 @@
 
 const router = express.Router()
 
-// Post new request
+Post new request
 
 router.post('/api/', async function (req, res) {
   const newRequest = await User.create(req.body)

@@ -2,12 +2,8 @@ const Customer = require('./customer')
 const Handie = require('./handie')
 const Request = require('./request')
 const Offer = require('./offer')
+const Photo = require('./photo')
 
-class Photo {
-  constructor(filename) {
-    this.filename = filename
-  }
-}
 
 module.exports = Photo
 
@@ -20,10 +16,10 @@ function signUpHandie(name, email, jobType) {
 
 // Signup section for Customer
 
-const gokce = signUpCustomer('gokce', 'gokce@gmail.com', 'Berlin')
-const emre = signUpCustomer('emre', 'emre@gmail.com', 'Berlin')
-const ethan = signUpCustomer('ethan', 'ethan@gmail.com', 'New York')
-const julie = signUpCustomer('julie', 'julie@gmail.com', 'Paris')
+// const gokce = signUpCustomer('gokce', 'gokce@gmail.com', 'Berlin')
+// const emre = signUpCustomer('emre', 'emre@gmail.com', 'Berlin')
+// const ethan = signUpCustomer('ethan', 'ethan@gmail.com', 'New York')
+// const julie = signUpCustomer('julie', 'julie@gmail.com', 'Paris')
 
 // Signup section for Handie
 
@@ -41,10 +37,10 @@ const house = new Photo('house.jpeg')
 
 //  Creating a new request
 // You can move it to makeReq func.
-const decorationRequest = new Request('decoration', 'interior design', house)
-const gardeningRequest = new Request('gardening', 'I want to plant a cherry blossom tree to my lovely garden', garden)
-const electricityRequest = new Request('electrician', 'electricity connection for kitchen', kitchen)
-const paintRequest = new Request('painting', 'I want my living room to be painted', livingRoom)
+// const decorationRequest = new Request('decoration', 'interior design', house)
+// const gardeningRequest = new Request('gardening', 'I want to plant a cherry blossom tree to my lovely garden', garden)
+// const electricityRequest = new Request('electrician', 'electricity connection for kitchen', kitchen)
+// const paintRequest = new Request('painting', 'I want my living room to be painted', livingRoom)
 
 // Customer creates a new Request
 

@@ -25,12 +25,20 @@ const handieSchema = new mongoose.Schema({
       ref: 'Offer',
     },
   ],
-
-  /*  completedJobs:
+  job: [
     {
-
+    type: String,
+    ref: 'Offer'
     }
-*/
+  ],
+  updatedOffer: [],
+
+  completedJobs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      autopopulate: { maxDepth : 1 }
+    }
+  ],
   rates: [
     {
       type: Number,
@@ -39,30 +47,24 @@ const handieSchema = new mongoose.Schema({
 })
 
 class Handie {
-  makeOffer(offer) {
+  async makeOffer(offer) {
     this.offers.push(offer)
-    console.log(`# ${this.name.brightBlue.bold} made an offer to request with ${
-      offer.request.toString().brightBlue.italic
-    }
-    `)
+    await this.save()
   }
 
-  addPhoto(photo) {
-    this.completedJobs.push(photo)
+  async addPhoto(photo) {
+    this.photo.push(photo)
+    await this.save()
   }
 
-  updateOffer() {
-    //  to do
+  async updateOffer(offer) {
+    this.updatedOffer.push(offer)
+    await this.save()
   }
 
-  get jobs() {
-    return `
-            # ${this.name.brightBlue.bold} is waiting for approval for the ${this.jobType.brightBlue.italic} request.
-        `
-  }
-
-  set job(newValue) {
-    throw new Error(`You haven't make an offer to this request yet.`)
+  async completeJob(job) {
+    this.completedJobs.push(job)
+    await this.save()
   }
 }
 
