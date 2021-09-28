@@ -12,9 +12,12 @@ const customerSchema = new mongoose.Schema({
     unique: true,
     required: true,
   },
+  age: {
+    type: Number,
+  },
   password: {
     type: String,
-    required: true,
+    // required: true,
     minLength: 8,
   },
   address: {
@@ -25,37 +28,50 @@ const customerSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Request',
-      autopopulate: true
+      autopopulate: { maxDepth: 1 }
     },
   ],
+  acceptedOffer: [
+    {
+      type: mongoose.Schema.Types.ObjectId
+    }
+  ],
+  declinedOffer: [
+    {
+    type: mongoose.Schema.Types.ObjectId
+    }
+
+  ]
+
 })
 
 class Customer {
-  makeRequest(request) {
+  async makeRequest(request) {
     this.requests.push(request)
-    console.log(`## ${this.name.magenta.bold} created a new job request
-    `)
+    await this.save()
   }
 
-  addPhoto(photo) {
-    this.photos.push(photo)
-    console.log(`${this.name} added a new photo to the request`)
+  async addPhoto(photos) {
+    this.requests.push(photos)
+    await this.save()
   }
 
-  rateHandie(rate, handie) {
+  async rateHandie(rate, handie) {
     const rateRange = [1, 2, 3, 4, 5]
-
     if (!rateRange.includes(rate)) return 'Please give a rate between 1-5'
-
     handie.rates.push(rate)
-
+    await this.save()
     return `Your rate(${rate}) has been added successfully.`
   }
 
-  acceptOffer() {}
+  async acceptOffer(offer) {
+    this.acceptedOffer.push(offer)
+    await this.save()
+  }
 
-  declineOffer() {
-    //  to do
+  async declineOffer(offer) {
+    this.declinedOffer.push(offer)
+    await this.save()
   }
 }
 customerSchema.loadClass(Customer)
