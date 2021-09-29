@@ -13,4 +13,4 @@ const requestSchema = new mongoose.Schema({
 })
 class Request {}
 
-module.exports = Request
+module.exports = mongoose.model('Request', requestSchema)
