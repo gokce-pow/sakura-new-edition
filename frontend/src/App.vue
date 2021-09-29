@@ -2,8 +2,7 @@
   #app
     h1 -Some Name Here-
     #nav
-      router-link(to="/") Customer list&nbsp
-      router-link(to="/about") About
+      router-link(to="/") Customer list
     router-view
 </template>
 
