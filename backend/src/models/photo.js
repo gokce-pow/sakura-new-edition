@@ -9,8 +9,7 @@ const photoSchema = new mongoose.Schema({
   addedBy: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      autopopulate: true,
+      ref: 'Customer',
     }
   ]
 })

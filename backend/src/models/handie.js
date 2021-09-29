@@ -36,7 +36,6 @@ const handieSchema = new mongoose.Schema({
   completedJobs: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      autopopulate: { maxDepth : 1 }
     }
   ],
   rates: [
