@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+
 const requestSchema = new mongoose.Schema({
   jobType: {
     type: mongoose.Schema.Types.ObjectId,
@@ -11,6 +12,5 @@ const requestSchema = new mongoose.Schema({
   acceptedOffer: {},
   declinedOffer: [{}],
 })
-class Request {}
 
 module.exports = mongoose.model('Request', requestSchema)

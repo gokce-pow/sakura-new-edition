@@ -1,4 +1,3 @@
-require('colors')
 const express = require('express')
 
 const router = express.Router()
@@ -12,19 +11,26 @@ router.post('/', async (req, res) => {
     name: req.body.name,
     age: req.body.age,
     email: req.body.email,
-    address: req.body.address
+    address: req.body.address,
   }
 
   const createdCustomer = await Customer.create(customerToCreate)
   res.send(createdCustomer)
 })
 
-router.get('/:customerId', async (req, res) => {
+router.post('/:customerId/adds', async (req, res) => {
   const customer = await Customer.findById(req.params.customerId)
+  const photo = await Photo.findById(req.body.photoId)
 
-  if (customer) res.send(customer)
-  else res.sendStatus(404)
+  await customer.addPhoto(photo)
+  res.sendStatus(200)
 })
+// router.get('/:customerId', async (req, res) => {
+//   const customer = await Customer.findById(req.params.customerId)
+
+//   if (customer) res.send(customer)
+//   else res.sendStatus(404)
+// })
 
 router.post('/signup', async (req, res) => {
   const newCustomer = await Customer.create(req.body)
@@ -48,15 +54,41 @@ router.get('/', async (req, res) => {
   if (req.query.age) {
     query.age = req.query.age
   }
-
-  res.send(await Customer.find(query))
+  const result = await Customer.find(query)
+  console.log('result', result)
+  res.send(result)
 })
 
-router.get('/test/initialize', async (req, res) => {
-  const gokce = await Customer.create({ name: 'gokce', age: 18, email: 'gokce@gmail.com', address: 'Berlin' })
-  const emre = await Customer.create({ name: 'emre', age: 19, email: 'emre@gmail.com', address: 'Berlin' })
-  const ethan = await Customer.create({ name: 'ethan', age: 24, email: 'ethan@gmail.com', address: 'New York' })
-  const julie = await Customer.create({ name: 'julie', age: 28, email: 'julie@gmail.com', address: 'Paris' })
+async function createPhoto(filename) {
+  const photo = await Photo.create({ filename })
+
+  const picsumUrl = `https://picsum.photos/seed/${photo._id}/300/300`
+  const pictureRequest = await axios.get(picsumUrl)
+  photo.filename = pictureRequest.request.path
+
+  const imagePath = await downloadImage(picsumUrl, filename)
+  const description = await describeImage(imagePath)
+  photo.description = description.BestOutcome.Description
+
+  return photo.save()
+}
+
+router.get('/initialize', async (req, res) => {
+  const gokce = new Customer({ name: 'gokce', age: 18, email: 'gokce@gmail.com', address: 'Berlin' })
+  await gokce.setPassword('test')
+  await gokce.save()
+
+  const emre = new Customer({ name: 'emre', age: 19, email: 'emre@gmail.com', address: 'Berlin' })
+  await emre.setPassword('test')
+  await emre.save()
+
+  const ethan = new Customer({ name: 'ethan', age: 24, email: 'ethan@gmail.com', address: 'New York' })
+  await ethan.setPassword('test')
+  await ethan.save()
+
+  const julie = new Customer({ name: 'julie', age: 28, email: 'julie@gmail.com', address: 'Paris' })
+  await julie.setPassword('test')
+  await julie.save()
 
   const kitchenPhoto = await Photo.create({ filename: 'kitchen.jpeg' })
   const livingRoomPhoto = await Photo.create({ filename: 'living room.jpeg' })
@@ -64,7 +96,10 @@ router.get('/test/initialize', async (req, res) => {
   const housePhoto = await Photo.create({ filename: 'house.jpeg' })
 
   const decorationRequest = await Request.create({ jobType: 'decoration', details: 'interior design' })
-  const gardeningRequest = await Request.create({ jobType: 'gardening', details: 'I want to plant a blossom tree to my lovely garden' })
+  const gardeningRequest = await Request.create({
+    jobType: 'gardening',
+    details: 'I want to plant a cherry blossom tree to my lovely garden',
+  })
   const electricityRequest = await Request.create({ jobType: 'electrician', details: 'electricity con }for kitchen' })
   const paintRequest = await Request.create({ jobType: 'painting', details: 'I want my living rbe painted' })
 
@@ -79,21 +114,6 @@ router.get('/test/initialize', async (req, res) => {
   await julie.makeRequest(livingRoomPhoto)
 })
 
-router.get('/:customerId', async (req, res) => {
-  const customer = await Customer.findById(req.params.customerId)
-
-  if (customer) res.send(customer)
-  else res.sendStatus(404)
-})
-
-router.post('/:customerId/adds', async (req, res) => {
-  const customer = await customer.findById(req.params.customerId)
-  const photo = await Photo.findById(req.body.photoId)
-
-  await customer.addPhoto(photo)
-  res.sendStatus(200)
-})
-
 // router.post('/:userId/likes', async (req, res) => {
 //   const user = await User.findById(req.params.userId)
 //   const photo = await Photo.findById(req.body.photoId)
@@ -101,8 +121,6 @@ router.post('/:customerId/adds', async (req, res) => {
 //   await user.likePhoto(photo)
 //   res.sendStatus(200)
 // })
-
-
 
 // router.get('/:userId/json', async (req, res) => {
 //   const user = await User.findById(req.params.userId)

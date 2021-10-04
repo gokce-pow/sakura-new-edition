@@ -5,32 +5,67 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 const mutations = {
-  INCREMENT_COUNT: 'incrementCount',
+  INCREMENT_COUNT: 'increment count',
+  SET_USER: 'set user',
 }
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {
     count: 0,
+    user: null,
   },
   mutations: {
     [mutations.INCREMENT_COUNT](state) {
       state.count++
     },
+    [mutations.SET_USER](state, user) {
+      state.user = user
+    },
   },
   actions: {
     incrementCount({ commit }) {
-      // do whatever you want
-      // decide on what you want to commit
       commit(mutations.INCREMENT_COUNT)
     },
     async fetchCustomer(store, id) {
-      const customerRequest = await axios.get(`/api/customers/${id}`)
-      return customerRequest.data
+      const usersRequest = await axios.get(`/api/customers/${id}`)
+      return usersRequest.data
     },
     async fetchCustomers() {
-      const customersRequest = await axios.get('/api/customers')
-      return customersRequest.data
+      const usersRequest = await axios.get('/api/customers')
+      return usersRequest.data
+    },
+    async fetchSession({ commit }) {
+      const user = await axios.get('/api/account/session')
+      commit(mutations.SET_USER, user.data || null)
+    },
+    async fetchHandies() {
+      const usersRequest = await axios.get('/api/handie')
+      return usersRequest.data
+    },
+    async fetchHandie(store, id) {
+      const handieRequest = await axios.get(`/api/handie/${id}`)
+      return handieRequest.data
+    },
+    async login({ commit }, credentials) {
+      try {
+        const user = await axios.post('/api/account/session', credentials)
+        commit(mutations.SET_USER, user.data)
+      } catch (e) {
+        throw e
+      }
+    },
+    async register(store, user) {
+      return axios.post('/api/account', user)
+    },
+    async logout({ commit }) {
+      await axios.delete('/api/account/session')
+      commit(mutations.SET_USER, null)
     },
   },
   modules: {},
 })
+
+export default async function init() {
+  await store.dispatch('fetchSession')
+  return store
+}
