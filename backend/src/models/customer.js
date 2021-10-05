@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-require('colors')
+const passportLocalMongoose = require('passport-local-mongoose')
 
 const customerSchema = new mongoose.Schema({
   name: {
@@ -32,16 +32,14 @@ const customerSchema = new mongoose.Schema({
   ],
   acceptedOffer: [
     {
-      type: mongoose.Schema.Types.ObjectId
-    }
+      type: mongoose.Schema.Types.ObjectId,
+    },
   ],
   declinedOffer: [
     {
-    type: mongoose.Schema.Types.ObjectId
-    }
-
-  ]
-
+      type: mongoose.Schema.Types.ObjectId,
+    },
+  ],
 })
 
 class Customer {
@@ -74,5 +72,8 @@ class Customer {
   }
 }
 customerSchema.loadClass(Customer)
+customerSchema.plugin(passportLocalMongoose, {
+  userNameField: 'email',
+})
 
 module.exports = mongoose.model('Customer', customerSchema)

@@ -2,26 +2,14 @@
 export default {
   name: 'CustomerCard',
   props: ['customer'],
-  data() {
-    return {
-      defaultInfo: 'This customer has no open requests',
-    }
-  },
 }
 </script>
 
 <template lang="pug">
 .box
   h1 {{customer.name}} ({{ customer.age }})
-  //- p Request: {{ customer.requests }}
-  //- h2 Photos ({{ customer.requests.length }})
-
-  //- .photo(v-for="request in customer.requests")
-  //-   h3 {{ photo.filename }}
-  //-   p(v-if="!photo.addedBy.length")
-  //-     | no likes yet!
-  //-   p(v-else)
-  //-     | {{photo.addedBy.map(customer => customer.name).join(', ') }}
+  p Request: {{ customer.requests }}
+  h2 Photos ({{ customer.requests.length }})
 </template>
 
 <style lang="scss" scoped>
