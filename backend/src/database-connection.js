@@ -21,4 +21,3 @@ mongoose
   .catch(console.log)
 
 module.exports = mongoose.connection
-module.exports = connectionString

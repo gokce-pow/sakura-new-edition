@@ -1,11 +1,11 @@
 <script>
 import axios from 'axios'
-import CustomerCard from '@/components/customer-card.vue'
+import Counter from '@/components/counter.vue'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'CustomerList',
-  components: { CustomerCard },
+  components: { Counter },
   data() {
     return {
       customers: [],
@@ -28,4 +28,5 @@ export default {
     h2 Customers
     div(v-for="customer in customers")
       router-link(:to="`/customers/${customer._id}`") {{ customer.name }}
+    Counter
 </template>

@@ -13,6 +13,7 @@ services:
       - 8080
     volumes:
       - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
   backend:
     image: backend
     build:
@@ -35,6 +36,7 @@ services:
       - 35729:35729
     volumes:
       - ./backend/src:/app/src
+      - ./backend/test:/app/test
       - ./images:/app/images
   mongo:
     image: mongo

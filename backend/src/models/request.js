@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const requestSchema = new mongoose.Schema({
   jobType: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: String,
     required: true,
   },
   details: {
@@ -10,7 +10,7 @@ const requestSchema = new mongoose.Schema({
     required: true,
   },
   acceptedOffer: {},
-  declinedOffer: [{}],
+  declinedOffer: {},
 })
 
 module.exports = mongoose.model('Request', requestSchema)

@@ -8,6 +8,7 @@ export default {
       name: '',
       age: null,
       email: '',
+      address: '',
       password: '',
 
       backendError: null,
@@ -23,6 +24,7 @@ export default {
           name: this.name,
           age: this.age,
           email: this.email,
+          address: this.address,
           password: this.password,
         })
 
@@ -45,6 +47,8 @@ export default {
         input(v-model="age" id="age" type="number" placeholder="Your age" required)
       label(for="email") Email:&nbsp;
         input(v-model="email" id="email" type="email" placeholder="Your email" required)
+      label(for="address") Address:&nbsp;
+        input(v-model="address" id="address" type="address" placeholder="Your address" required)
       label(for="password") Password:&nbsp;
         input(v-model="password" id="password" type="password" placeholder="Your password" required)
       input(type="submit" value="Register")

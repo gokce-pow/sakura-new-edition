@@ -1,9 +1,8 @@
-const Customer = require('./customer')
+/* const Customer = require('./customer')
 const Handie = require('./handie')
 const Request = require('./request')
 const Offer = require('./offer')
 const Photo = require('./photo')
-
 
 module.exports = Photo
 
@@ -44,10 +43,10 @@ const house = new Photo('house.jpeg')
 
 // Customer creates a new Request
 
-gokce.makeRequest(decorationRequest)
-emre.makeRequest(gardeningRequest)
-ethan.makeRequest(electricityRequest)
-julie.makeRequest(paintRequest)
+await gokce.makeRequest(decorationRequest)
+await emre.makeRequest(gardeningRequest)
+await ethan.makeRequest(electricityRequest)
+await julie.makeRequest(paintRequest)
 
 // Adds new Offer
 // You can move them to makeOffer
@@ -93,3 +92,5 @@ console.log(lianne.jobs)
 
 console.log(gokce.rateHandie(3, eddie))
 console.log(gokce.rateHandie(9, billie))
+
+*/

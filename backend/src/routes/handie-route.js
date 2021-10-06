@@ -28,11 +28,4 @@ router.post('/signUp', async (req, res) => {
   res.send(newHandie)
 })
 
-router.get('/initialize', async (req, res) => {
-  const eddie = await Handie.create({ name: 'eddie', email: 'eddie@eddie.com', jobType: 'gardening' })
-  const mildred = await Handie.create({ name: 'mildred', email: 'mildred@mildred.com', jobType: 'painting' })
-  const billie = await Handie.create({ name: 'billie', email: 'bille@billie.com', jobType: 'decoration' })
-  const lianne = await Handie.create({ name: 'lianne', email: 'lianne@lianne.com', jobType: 'electrician' })
-})
-
 module.exports = router

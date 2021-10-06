@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const passportLocalMongoose = require('passport-local-mongoose')
+const autopopulate = require('mongoose-autopopulate')
 
 const customerSchema = new mongoose.Schema({
   name: {
@@ -7,19 +8,19 @@ const customerSchema = new mongoose.Schema({
     required: true,
     minLength: 2,
   },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-  },
+  // email: {
+  //   type: String,
+  //   unique: true,
+  //   required: true,
+  // },
   age: {
     type: Number,
   },
-  password: {
-    type: String,
-    // required: true,
-    minLength: 8,
-  },
+  // password: {
+  //   type: String,
+  //   required: true,
+  //   minLength: 8,
+  // },
   address: {
     type: String,
     required: true,
@@ -28,16 +29,21 @@ const customerSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Request',
+      autopopulate: { maxDepth: 1 },
     },
   ],
   acceptedOffer: [
     {
       type: mongoose.Schema.Types.ObjectId,
+      ref: 'Offer',
+      autopopulate: { maxDepth: 1 },
     },
   ],
   declinedOffer: [
     {
       type: mongoose.Schema.Types.ObjectId,
+      ref: 'Offer',
+      autopopulate: { maxDepth: 1 },
     },
   ],
 })
@@ -72,8 +78,9 @@ class Customer {
   }
 }
 customerSchema.loadClass(Customer)
+customerSchema.plugin(autopopulate)
 customerSchema.plugin(passportLocalMongoose, {
-  userNameField: 'email',
+  usernameField: 'email',
 })
 
 module.exports = mongoose.model('Customer', customerSchema)

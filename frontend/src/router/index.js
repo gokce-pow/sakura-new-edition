@@ -29,7 +29,7 @@ export default function init(store) {
         name: 'register',
         component: Register,
         beforeEnter(to, from, next) {
-          if (store.state.customer) return next('/profile')
+          if (store.state.user) return next('/profile')
           return next()
         },
       },
@@ -38,7 +38,7 @@ export default function init(store) {
         name: 'login',
         component: Login,
         beforeEnter(to, from, next) {
-          if (store.state.customer) return next('/profile')
+          if (store.state.user) return next('/profile')
           return next()
         },
       },
@@ -47,7 +47,7 @@ export default function init(store) {
         name: 'profile',
         component: CustomerList,
         beforeEnter(to, from, next) {
-          if (!store.state.customer) return next('/login')
+          if (!store.state.user) return next('/login')
           return next()
         },
       },

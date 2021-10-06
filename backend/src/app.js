@@ -9,17 +9,19 @@ const MongoStore = require('connect-mongo')
 const passport = require('passport')
 const Customer = require('./models/customer')
 
+const mongooseConnection = require('./database-connection')
+
 const indexRouter = require('./routes/index-route')
-const customersRouter = require('./routes/customers-route')
+const customersRouter = require('./routes/customers')
 const handieRouter = require('./routes/handie-route')
 const accountRouter = require('./routes/account-route')
 
-const mongooseConnection = require('./database-connection')
+mongoose.connect(process.env.MONGODB_CONNECTION_STRING)
 
 const app = express()
 
 const clientPromise = new Promise((resolve, reject) => {
-  resolve(mongoose.connection.getClient())
+  resolve(mongooseConnection.getClient())
   reject(new Error('MongoClient Error'))
 })
 
@@ -70,7 +72,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/api', (req, res, next) => {
   req.session.viewCount = req.session.viewCount || 0
-  req.session.viewCount += 1
+  // eslint-disable-next-line no-plusplus
+  req.session.viewCount++
   next()
 })
 
