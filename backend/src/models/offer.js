@@ -1,11 +1,15 @@
 const mongoose = require('mongoose')
+const autopopulate = require('mongoose-autopopulate')
 
 const offerSchema = new mongoose.Schema({
-  request: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'Request',
-  },
+  requests: [
+    {
+      type: String,
+      required: true,
+      ref: 'Request',
+      autopopulate: { maxDepth: 1 },
+    },
+  ],
   price: {
     type: Number,
     required: true,
@@ -20,12 +24,11 @@ const offerSchema = new mongoose.Schema({
   },
   jobType: [
     {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Request',
+      autopopulate: { maxDepth: 1 },
     },
   ],
-  handie: {
-    // name??
-  },
 })
 
 class Offer {
@@ -38,5 +41,6 @@ class Offer {
     this.handie = {}
   }
 }
-
+offerSchema.plugin(autopopulate)
+offerSchema.loadClass(Offer)
 module.exports = mongoose.model('Offer', offerSchema)

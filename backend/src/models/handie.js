@@ -1,14 +1,9 @@
 const mongoose = require('mongoose')
-require('colors')
+const autopopulate = require('mongoose-autopopulate')
 
 const handieSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    unique: true,
     required: true,
   },
   jobType: {
@@ -23,20 +18,24 @@ const handieSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Offer',
+      autopopulate: { maxDepth: 1 },
     },
   ],
   job: [
     {
-    type: String,
-    ref: 'Offer'
-    }
+      type: String,
+      ref: 'Offer',
+      autopopulate: { maxDepth: 1 },
+    },
   ],
   updatedOffer: [],
 
   completedJobs: [
     {
       type: mongoose.Schema.Types.ObjectId,
-    }
+      ref: 'Request',
+      autopopulate: { maxDepth: 1 },
+    },
   ],
   rates: [
     {
@@ -67,4 +66,6 @@ class Handie {
   }
 }
 
+handieSchema.plugin(autopopulate)
+handieSchema.loadClass(Handie)
 module.exports = mongoose.model('Handie', handieSchema)

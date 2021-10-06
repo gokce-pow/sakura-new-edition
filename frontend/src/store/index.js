@@ -43,8 +43,8 @@ const store = new Vuex.Store({
       return usersRequest.data
     },
     async fetchHandie(store, id) {
-      const handieRequest = await axios.get(`/api/handie/${id}`)
-      return handieRequest.data
+      const usersRequest = await axios.get(`/api/handie/${id}`)
+      return usersRequest.data
     },
     async login({ commit }, credentials) {
       try {

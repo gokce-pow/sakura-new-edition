@@ -15,11 +15,10 @@ export default {
 <template lang="pug">
   #app
     #nav
-      router-link(to="/") Home&nbsp
-      router-link(to="/customers") Customer List&nbsp
-      router-link(to="/profile") Profile&nbsp
-      router-link(to="/login") Login&nbsp
-      router-link(to="/register") Register&nbsp
+      router-link(to="/profile") Profile&nbsp;
+      router-link(to="/") Customer List&nbsp;
+      router-link(to="/login") Login&nbsp;
+      router-link(to="/register") Register&nbsp;
       a(@click="doLogout" href="#") Logout
     router-view
 </template>
