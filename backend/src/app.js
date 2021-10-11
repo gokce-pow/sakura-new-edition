@@ -1,12 +1,13 @@
 const createError = require('http-errors')
 const express = require('express')
 const path = require('path')
-const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const session = require('express-session')
-const MongoStore = require('connect-mongo')
+const MongoStore = require('connect-mongo')(session)
 const passport = require('passport')
+const cors = require('cors')
+
 const Customer = require('./models/customer')
 
 const mongooseConnection = require('./database-connection')
@@ -16,26 +17,30 @@ const customersRouter = require('./routes/customers')
 const handieRouter = require('./routes/handie-route')
 const accountRouter = require('./routes/account-route')
 
-mongoose.connect(process.env.MONGODB_CONNECTION_STRING)
-
 const app = express()
 
-const clientPromise = new Promise((resolve, reject) => {
-  resolve(mongooseConnection.getClient())
-  reject(new Error('MongoClient Error'))
-})
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+)
 
-// if (app.get('env') == 'development') {
-//   /* eslint-disable-next-line */
-//   app.use(
-//     require('connect-livereload')({ port: 35729 }),
-//     /* eslint-disable-next-line */
-//     require('livereload')
-//       .createServer({ extraExts: ['pug'] })
-//       .watch([`${__dirname}/public`, `${__dirname}/views`])
-//   )
-// }
+// const clientPromise = new Promise((resolve, reject) => {
+//   resolve(mongooseConnection.getClient())
+//   reject(new Error('MongoClientError'))
+// })
 
+if (app.get('env') == 'development') {
+  /* eslint-disable-next-line */
+  app.use(require('connect-livereload')())
+  /* eslint-disable-next-line */
+  require('livereload')
+    .createServer({ extraExts: ['pug'] })
+    .watch([`${__dirname}/public`, `${__dirname}/views`])
+}
+
+app.set('trust proxy', 1)
 // view engine setup
 
 app.set('views', path.join(__dirname, 'views'))
@@ -49,13 +54,12 @@ app.use(cookieParser())
 app.use(
   session({
     secret: ['thisisnotasupersecuresecretsecret', 'thisisanothernotasupersecuresecretsecret'],
-    store: MongoStore.create({
-      clientPromise,
-      stringify: false,
-    }),
+    store: new MongoStore({ mongooseConnection, stringify: false }),
     cookie: {
       maxAge: 30 * 24 * 60 * 60 * 1000,
       path: '/api',
+      sameSite: process.env.NODE_EV == 'production' ? 'none' : 'strict',
+      secure: process.env.NODE_EV == 'production',
     },
   })
 )
