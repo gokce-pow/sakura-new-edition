@@ -14,6 +14,7 @@ export default {
   },
   async created() {
     this.customers = await this.fetchCustomers()
+    console.log(this.customers)
   },
   methods: {
     ...mapActions(['fetchCustomers']),
