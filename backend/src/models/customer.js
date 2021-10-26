@@ -16,6 +16,13 @@ const customerSchema = new mongoose.Schema({
   age: {
     type: Number,
   },
+  photos: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Photo',
+      autopopulate: { maxDepth: 1 },
+    },
+  ],
   // password: {
   //   type: String,
   //   required: true,
@@ -54,8 +61,11 @@ class Customer {
     await this.save()
   }
 
-  async addPhoto(photos) {
-    this.requests.push(photos)
+  async addPhoto(photo) {
+    this.requests.push(photo)
+    photo.addedBy.push(this)
+
+    await photo.save()
     await this.save()
   }
 

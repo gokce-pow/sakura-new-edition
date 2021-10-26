@@ -26,11 +26,6 @@ app.use(
   })
 )
 
-// const clientPromise = new Promise((resolve, reject) => {
-//   resolve(mongooseConnection.getClient())
-//   reject(new Error('MongoClientError'))
-// })
-
 if (app.get('env') == 'development') {
   /* eslint-disable-next-line */
   app.use(require('connect-livereload')())
