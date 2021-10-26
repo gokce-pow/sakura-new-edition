@@ -62,7 +62,7 @@ class Customer {
   }
 
   async addPhoto(photo) {
-    this.requests.push(photo)
+    this.photos.push(photo)
     photo.addedBy.push(this)
 
     await photo.save()
