@@ -24,7 +24,8 @@ services:
       # - MONGODB_PASSWORD
       # - MONGODB_DATABASE
       - MONGODB_CONNECTION_STRING=mongodb://mongo/sakura-new-edition
-      # - HOST=0.0.0.0
+      - PORT=3000
+        # - HOST=0.0.0.0
       # - CHOKIDAR_USEPOLLING=true
     # 'mongo' in the url and the below service name 'mongo' should be the same
     labels:
@@ -32,7 +33,7 @@ services:
       - "traefik.http.routers.backend.rule=(Host(`sakura.localhost`) && PathPrefix(`/api`))"
       - "traefik.http.routers.backend.entrypoints=web"
     ports:
-      - 3000
+      - 4000:3000
       - 35729:35729
     volumes:
       - ./backend/src:/app/src
