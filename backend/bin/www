@@ -44,6 +44,8 @@ function normalizePort(val) {
 const port = normalizePort(process.env.PORT || '3000')
 app.set('port', port)
 
+app.get('io').attach(server)
+
 server.listen(port, '0.0.0.0')
 
 /**
