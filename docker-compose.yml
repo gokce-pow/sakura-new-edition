@@ -4,7 +4,7 @@ services:
     image: frontend
     build:
       context: frontend
-      dockerfile: Dockerfile
+      dockerfile: dev.Dockerfile
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=Host(`sakura.localhost`)"
@@ -18,21 +18,22 @@ services:
     image: backend
     build:
       context: backend
-      dockerfile: Dockerfile
+      dockerfile: dev.Dockerfile
     environment:
       # - MONGODB_USERNAME
       # - MONGODB_PASSWORD
       # - MONGODB_DATABASE
       - MONGODB_CONNECTION_STRING=mongodb://mongo/sakura-new-edition
-      - HOST=0.0.0.0
-      - CHOKIDAR_USEPOLLING=true
+      - PORT=3000
+        # - HOST=0.0.0.0
+      # - CHOKIDAR_USEPOLLING=true
     # 'mongo' in the url and the below service name 'mongo' should be the same
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.rule=(Host(`sakura.localhost`) && PathPrefix(`/api`))"
       - "traefik.http.routers.backend.entrypoints=web"
     ports:
-      - 3000
+      - 4000:3000
       - 35729:35729
     volumes:
       - ./backend/src:/app/src

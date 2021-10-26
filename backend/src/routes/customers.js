@@ -64,7 +64,7 @@ router.get('/initialize', async (req, res) => {
   await julie.save()
 
   const kitchenPhoto = await Photo.create({ filename: 'kitchen.jpeg' })
-  const livingRoomPhoto = await Photo.create({ filename: 'living room.jpeg' })
+  const livingRoomPhoto = await Photo.create({ filename: 'livingroom.jpeg' })
   const gardenPhoto = await Photo.create({ filename: 'garden.jpeg' })
   const housePhoto = await Photo.create({ filename: 'house.jpeg' })
 
@@ -73,7 +73,10 @@ router.get('/initialize', async (req, res) => {
     jobType: 'gardening',
     details: 'I want to plant a cherry blossom tree to my lovely garden',
   })
-  const electricityRequest = await Request.create({ jobType: 'electrician', details: 'electricity con }for kitchen' })
+  const electricityRequest = await Request.create({
+    jobType: 'electrician',
+    details: 'electricity connection for kitchen',
+  })
   const paintRequest = await Request.create({ jobType: 'painting', details: 'I want my living room to be painted' })
 
   await gokce.addPhoto(housePhoto)
