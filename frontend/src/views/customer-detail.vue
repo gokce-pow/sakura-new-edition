@@ -12,7 +12,7 @@ export default {
       customer: null,
     }
   },
-  async mounted() {
+  async created() {
     this.customer = await this.fetchCustomer(this.$route.params.id)
   },
   methods: {
