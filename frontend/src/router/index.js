@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import CustomerList from '../views/customer-list.vue'
+import Profile from '../views/profile.vue'
 import Login from '../views/login.vue'
 import Register from '../views/register.vue'
-
+import Quote from '../views/quote.vue'
+import CustomerList from '../views/customer-list.vue'
+import Home from '../views/home.vue'
 Vue.use(VueRouter)
 
 export default function init(store) {
@@ -13,8 +15,18 @@ export default function init(store) {
     routes: [
       {
         path: '/',
+        name: 'Home',
+        component: Home,
+      },
+      {
+        path: '/customer-list',
         name: 'CustomerList',
         component: CustomerList,
+      },
+      {
+        path: '/quote',
+        name: 'Quote',
+        component: Quote,
       },
       {
         path: '/customers/:id',
@@ -29,7 +41,7 @@ export default function init(store) {
         name: 'register',
         component: Register,
         beforeEnter(to, from, next) {
-          if (store.state.user) return next('/profile')
+          if (store.state.customer) return next('/profile')
           return next()
         },
       },
@@ -38,16 +50,16 @@ export default function init(store) {
         name: 'login',
         component: Login,
         beforeEnter(to, from, next) {
-          if (store.state.user) return next('/profile')
+          if (store.state.customer) return next('/profile')
           return next()
         },
       },
       {
         path: '/profile',
         name: 'profile',
-        component: CustomerList,
+        component: Profile,
         beforeEnter(to, from, next) {
-          if (!store.state.user) return next('/login')
+          if (!store.state.customer) return next('/login')
           return next()
         },
       },
