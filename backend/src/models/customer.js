@@ -8,11 +8,11 @@ const customerSchema = new mongoose.Schema({
     required: true,
     minLength: 2,
   },
-  // email: {
-  //   type: String,
-  //   unique: true,
-  //   required: true,
-  // },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
   age: {
     type: Number,
   },
