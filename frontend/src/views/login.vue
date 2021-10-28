@@ -46,8 +46,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 label {
   display: block;
+  block-size: 40px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 1rem 0;
 }
@@ -58,5 +62,8 @@ input {
   border-radius: 0.3rem;
   box-shadow: blanchedalmond;
   margin-right: 75rem;
+}
+div {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 </style>
