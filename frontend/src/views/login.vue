@@ -31,21 +31,32 @@ export default {
 </script>
 
 <template lang="pug">
-.login
-    form(@submit="submitLogin")
-      h1 Log in to your account
-      label(for="email") Email:&nbsp;
-        input(v-model="email" id="email" type="email" placeholder="Your email" required)
-      label(for="password") Password:&nbsp;
-        input(v-model="password" id="password" type="password" placeholder="Your password" required)
-      input(type="submit" value="Log in")
-    div(v-if="backendError") {{ backendError }}
-    div Don't have an account yet? <router-link to="/register">Register</router-link>
+.home
+  img(src="../assets/img/sakura-tree.png" alt="test home page test" width=40)
+  .login
+      form(@submit="submitLogin")
+        h1 Log in to your account
+        label(for="email") Email:&nbsp;
+            input(v-model="email" id="email" type="email" placeholder="Your email" required)
+        label(for="password") Password:&nbsp;
+            input(v-model="password" id="password" type="password" placeholder="Your password" required)
+        input(type="submit" value="Log in")
+      div(v-if="backendError") {{ backendError }}
+      div Don't have an account yet? <router-link to="/register">Register</router-link>
 </template>
 
 <style lang="scss" scoped>
 label {
   display: block;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 1rem 0;
+}
+input {
+  padding: 0.2rem;
+  border: 4px solid rgba(84, 114, 114, 0.836);
+  background: rgb(248, 237, 244);
+  border-radius: 0.3rem;
+  box-shadow: blanchedalmond;
+  margin-right: 75rem;
 }
 </style>

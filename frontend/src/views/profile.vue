@@ -34,7 +34,8 @@ export default {
 
 <template lang="pug">
   .home
-    h1 Sakura {{ customer.name }}
+    img(src="../assets/img/sakura-tree.png" alt="test home page test" width=40)
+    h1 Hello {{ (customer.name).toUpperCase() }},
     p The time is {{ time }} 
       h2 Users
     div(v-for="customer in customers")
