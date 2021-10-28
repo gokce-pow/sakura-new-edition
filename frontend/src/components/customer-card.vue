@@ -22,8 +22,9 @@ export default {
 <style lang="scss" scoped>
 .box {
   padding: 0.2rem;
-  border: 1px solid rgba(84, 114, 114, 0.836);
+  border: 10px solid rgba(84, 114, 114, 0.836);
   background: rgb(130, 230, 216);
   border-radius: 0.3rem;
+  box-shadow: blanchedalmond;
 }
 </style>

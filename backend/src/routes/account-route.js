@@ -6,22 +6,23 @@ const Customer = require('../models/customer')
 const router = express.Router()
 
 router.get('/session', (req, res) => {
-  res.send(req.customer)
+  res.send(req.user)
 })
 
 router.post('/', async (req, res, next) => {
   const { name, age, email, address, password } = req.body
 
   try {
-    const user = await Customer.register({ name, age, email, address }, password)
-    res.send(user)
+    const customer = await Customer.register({ name, age, email, address }, password)
+    res.send(customer)
   } catch (e) {
     next(e)
   }
 })
 
 router.post('/session', passport.authenticate('local', { failWithError: true }), async (req, res) => {
-  res.send(req.customer)
+  console.log('req: ', req)
+  res.send(req.user)
 })
 
 router.delete('/session', async (req, res, next) => {

@@ -11,6 +11,7 @@ const cors = require('cors')
 const Customer = require('./models/customer')
 
 const mongooseConnection = require('./database-connection')
+const socketService = require('./socket-service')
 
 const indexRouter = require('./routes/index-route')
 const customersRouter = require('./routes/customers')
@@ -34,6 +35,7 @@ if (app.get('env') == 'development') {
     .createServer({ extraExts: ['pug'] })
     .watch([`${__dirname}/public`, `${__dirname}/views`])
 }
+app.set('io', socketService)
 
 app.set('trust proxy', 1)
 // view engine setup
@@ -94,7 +96,12 @@ app.use((err, req, res) => {
 
   // render the error page
   res.status(err.status || 500)
-  res.render('error')
+
+  res.send({
+    status: err.status,
+    message: err.message,
+    stack: req.app.get('env') == 'development' ? err.stack : '',
+  })
 })
 
 module.exports = app

@@ -30,7 +30,7 @@ services:
     # 'mongo' in the url and the below service name 'mongo' should be the same
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=(Host(`sakura.localhost`) && PathPrefix(`/api`))"
+      - "traefik.http.routers.backend.rule=(Host(`sakura.localhost`) && (PathPrefix(`/api`) || PathPrefix(`/socket`)))"
       - "traefik.http.routers.backend.entrypoints=web"
     ports:
       - 4000:3000

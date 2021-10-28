@@ -1,11 +1,12 @@
 <script>
 import axios from 'axios'
+import CustomerCard from '@/components/customer-card.vue'
 import Counter from '@/components/counter.vue'
 import { mapActions } from 'vuex'
 
 export default {
   name: 'CustomerList',
-  components: { Counter },
+  components: { CustomerCard, Counter },
   data() {
     return {
       customers: [],
@@ -24,9 +25,8 @@ export default {
 
 <template lang="pug">
   .home
-    h1 Sakura
-    p The time is {{ time }} 
-    h2 Customers
+    img(src="../assets/img/sakura-tree.png" alt="test home page test" width=40)
+    h3 Customers
     div(v-for="customer in customers")
       router-link(:to="`/customers/${customer._id}`") {{ customer.name }}
     Counter
